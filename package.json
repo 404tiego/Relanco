@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "NODE_ENV=development bun server/index.ts",
     "dev:node": "cross-env NODE_ENV=development tsx server/index.ts",
-    "build": "tsx script/build.ts",
+    "build": "npx tsx script/build.ts",
     "start": "cross-env NODE_ENV=production node dist/index.cjs",
     "start:bun": "cross-env NODE_ENV=production bun dist/index.cjs",
     "check": "tsc",
@@ -74,6 +74,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.16.3",
     "pino": "^10.1.0",
+    "tsx": "^4.20.5",
     "pino-http": "^11.0.0",
     "pino-pretty": "^13.1.3",
     "react": "^18.3.1",
@@ -115,7 +116,6 @@
     "esbuild": "^0.25.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.17",
-    "tsx": "^4.20.5",
     "typescript": "5.6.3",
     "vite": "^7.3.0"
   },
