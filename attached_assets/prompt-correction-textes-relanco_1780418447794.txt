@@ -1,0 +1,225 @@
+Corrige tous les textes de la landing page de Relanco. Le problème : certains textes s'adressent au fondateur du SaaS au lieu de s'adresser au directeur de concession qui visite la page. D'autres utilisent du jargon incompréhensible. Chaque remplacement ci-dessous est à appliquer partout dans le code — composants, constantes, fichiers de traduction, tout.
+
+RÈGLE GÉNÉRALE :
+Le "vous" sur la landing page s'adresse TOUJOURS au directeur de concession.
+Jamais de jargon startup (MRR, churn, MVP, upsell, CRM, DMS, lead scoring...).
+Chaque bénéfice doit être exprimé en résultat concret, pas en mécanique technique.
+Tout doit être en français — aucun terme anglais visible dans l'interface.
+
+═══════════════════════════════════════════════════
+REMPLACEMENTS EXACTS — COPIER/COLLER DANS LE CODE
+═══════════════════════════════════════════════════
+
+--- NOMS DES PLANS TARIFAIRES ---
+
+"After-Sales"        →  "Relances Auto"
+"Lead Qualification" →  "Réponse Leads"
+"AutoPilot"          →  "Pack Complet"
+
+--- TITRES DE SECTIONS ---
+
+"Upsell naturel"     →  "Évolution simple"
+"Churn quasi nul"    →  "Vos clients restent"
+"Cycle vertueux"     →  "Un outil qui s'améliore tout seul"
+"Données enrichies"  →  "Un historique complet sur chaque client"
+"MVP rapide"         →  "Opérationnel en moins d'un mois"
+
+--- CORPS DE TEXTES (remplacements exacts) ---
+
+AVANT :
+"Commencez par les relances après-vente à €149/mois. Les concessions ajoutent la qualification des leads quand elles voient les résultats."
+APRÈS :
+"Démarrez avec les rappels clients automatiques dès €149/mois. Activez la réponse aux demandes d'achat dès que vous voyez les premiers résultats."
+
+---
+
+AVANT :
+"MVP le plus simple. Connexion DMS + SMS/email automatiques. Rappel CT J-30/J-7, relance entretien au km prédit, offre de reprise. Zéro intégration CRM complexe."
+APRÈS :
+"La solution la plus simple pour démarrer. Se connecte à votre logiciel de gestion existant en 48h. Rappels contrôle technique, relance entretien, offre de rachat — tout automatique."
+
+---
+
+AVANT :
+"Quand vous avez 10–20 concessions clientes. Agent IA de réponse aux leads. Les clients existants upgradent naturellement — vous avez déjà leur confiance."
+APRÈS :
+"À partir du 2ème mois, activez la réponse automatique à toutes vos demandes d'achat entrantes. Vos clients actuels passent au module supérieur en un clic."
+
+---
+
+AVANT :
+"Les deux modules bundlés. Le cycle de données se ferme : leads → achat → relance → rachat. Churn quasi nul parce que les données couvrent tout le cycle."
+APRÈS :
+"Les deux modules réunis. Chaque client est suivi de sa première demande jusqu'à son prochain achat. Vos clients restent parce que Relanco connaît leur historique complet."
+
+---
+
+AVANT :
+"Les données client couvrent tout le cycle de vie. Du lead au rachat, tout est connecté."
+APRÈS :
+"Relanco garde l'historique complet de chaque client — du premier contact jusqu'au prochain achat. Rien ne se perd."
+
+---
+
+AVANT :
+"Commencez par les relances après-vente à €149/mois. Les concessions ajoutent la qualification des leads quand elles voient les résultats."
+APRÈS :
+"Démarrez par les rappels automatiques. Ajoutez la réponse aux demandes d'achat quand vous êtes prêt."
+
+---
+
+AVANT :
+"Le comportement après-vente enrichit la qualification des leads. Les données s'améliorent avec le temps."
+APRÈS :
+"Plus vous utilisez Relanco, plus il devient précis. Chaque échange avec vos clients améliore les suivants."
+
+---
+
+AVANT :
+"Le comportement après-vente (entretiens, CT, réparations) améliore la qualité des leads entrants. Chaque donnée sert deux fois."
+APRÈS :
+"L'historique entretiens, contrôles techniques et réparations de chaque client aide Relanco à mieux répondre aux nouvelles demandes d'achat."
+
+---
+
+AVANT :
+"Le directeur de concession n'a pas besoin de jongler entre 5 outils. Un seul dashboard, un seul fournisseur."
+APRÈS :
+"Tout au même endroit : rappels clients, demandes d'achat, historique. Un seul outil, une seule facture."
+
+---
+
+AVANT :
+"4-6 semaines de build pour le module après-vente. Zéro intégration CRM complexe au début. Juste connexion DMS + SMS/email."
+APRÈS :
+"Opérationnel en 4 à 6 semaines. Pas besoin de changer vos habitudes — on se connecte par-dessus votre logiciel existant."
+
+--- FEATURES DANS LES PLANS TARIFAIRES ---
+
+"Churn inférieur à 6% garanti"  →  "Moins de 6% de résiliations par an"
+"Profil 360° client"            →  "Historique complet de chaque client"
+"Prédiction prochain achat"     →  "Relanco vous dit quand un client est prêt à racheter"
+"Contenu IA intégré"            →  "Messages rédigés automatiquement par l'IA"
+"Contenu IA bonus"              →  "Messages clients rédigés par l'IA"
+"Score priorité lead"           →  "Classement automatique par urgence"
+"Score de priorité pour les vendeurs" → "Vos vendeurs savent qui rappeler en premier"
+"Fiche enrichie dans le CRM"    →  "Fiche client complète envoyée à votre vendeur"
+"Fiche enrichie livrée dans le CRM"  →  "Résumé complet transmis à votre vendeur"
+"Intégration CRM"               →  "Compatible avec votre outil de suivi client"
+"Connexion DMS"                 →  "Compatible avec votre logiciel de gestion"
+"3 questions de qualification"  →  "3 questions pour identifier les acheteurs sérieux"
+"Réponse IA <60 sec 24h/24"    →  "Réponse automatique en moins d'une minute, 7j/7"
+"Dashboard taux retour atelier" →  "Tableau de bord : combien de clients reviennent à l'atelier"
+"Offre de reprise automatique"  →  "Proposition de rachat de véhicule au bon moment"
+"Relance entretien au km"       →  "Rappel automatique quand l'entretien approche"
+"Rappel CT J-30 / J-7"         →  "Rappels contrôle technique 30 et 7 jours avant"
+"SMS + Email automatiques"      →  "Messages automatiques par SMS et email"
+
+--- BANDE STATS EN BAS DU HERO ---
+
+SUPPRIMER ENTIÈREMENT la ligne :
+"Métriques cibles : €80K MRR en 18 mois • Churn cible inférieur à 6% (combo) • Essai gratuit 14 jours"
+
+REMPLACER PAR :
+"Essai gratuit 14 jours • Sans engagement • Résiliable à tout moment"
+
+--- STATS DES 4 MÉTRIQUES ---
+
+"< 6%  → Churn cible sur le pack AutoPilot"
+REMPLACER PAR :
+"< 6%  → Résiliations par an sur le Pack Complet"
+
+--- DESCRIPTIONS DES MODULES ---
+
+AVANT :
+"Données leads → historique client post-vente. Profil 360° du 1er contact au 3ème achat. Prédiction du prochain achat par IA. Rapport ROI mensuel pour le directeur."
+APRÈS :
+"Toutes les demandes d'achat reliées à l'historique de chaque client. Relanco vous dit quand un client est prêt à changer de véhicule. Rapport mensuel de résultats pour le directeur."
+
+--- SOUS-TITRES DE SECTIONS ---
+
+AVANT :
+"Pas des features isolées. Un cycle de données qui se referme : du premier lead au 3ème achat."
+APRÈS :
+"Pas des outils isolés. Un système complet qui suit vos clients du premier contact jusqu'au prochain achat."
+
+--- TITRES DES BOUTONS CTA ---
+
+"Démarrer la Phase 1"   →  "Commencer maintenant"
+"Disponible Mois 3-4"   →  "Disponible sous 3 mois"
+"Le Meilleur Choix"     →  "Choisir le Pack Complet"
+
+--- NAVBAR ---
+
+"Fonctionnalités"  →  conserver
+"Roadmap"         →  "Comment ça marche"
+"Tarifs"          →  conserver
+"FAQ"             →  conserver
+"Essai Gratuit"   →  "Essai Gratuit 14 jours"
+
+--- ONBOARDING ---
+
+AVANT :
+"Testez votre premier SMS — envoyez-le à vous-même"
+APRÈS :
+"Envoyez un message test pour vérifier que tout fonctionne"
+
+AVANT :
+"C'est parti ! Votre premier rappel CT partira cette nuit."
+APRÈS :
+"C'est parti ! Relanco surveille votre base clients à partir de maintenant."
+
+--- DASHBOARD ---
+
+"Leads chauds en attente"   →  "Demandes urgentes à traiter"
+"SMS envoyés ce mois"       →  "Messages envoyés ce mois"
+"CT à relancer (30j)"       →  "Contrôles techniques à venir (30 jours)"
+"Simuler les relances du jour" →  "Envoyer les rappels du jour"
+"Leads entrants"            →  "Demandes d'achat reçues"
+"Lead Qualification"        →  "Réponse aux demandes"
+"Leads"  (menu sidebar)     →  "Demandes d'achat"
+"Relances" (menu sidebar)   →  "Rappels clients"
+"Rapports" (menu sidebar)   →  "Résultats"
+
+--- TABLEAU DES LEADS ---
+
+Colonne "Statut" : badges CHAUD / TIÈDE / FROID
+  →  Remplacer par : "Urgent" / "À suivre" / "En veille"
+  (même couleur rouge/amber/bleu, juste le texte change)
+
+--- PARAMÈTRES ---
+
+"Clé API Anthropic"    →  "Clé IA (fournie par Relanco)"
+"Ton de l'agent"       →  "Style de communication"
+"select Chaleureux / Professionnel / Commercial"  →  conserver ces options (elles sont claires)
+"Numéro Twilio émetteur SMS"  →  "Numéro d'envoi des SMS"
+
+--- FAQ ---
+
+AVANT question :
+"Mon DMS est-il compatible ?"
+APRÈS :
+"Mon logiciel de gestion est-il compatible ?"
+
+AVANT réponse :
+"Nous supportons les principaux DMS français : IDS, Dcsys, Kerridge, CDK."
+APRÈS :
+"Relanco fonctionne avec les principaux logiciels de gestion automobile : IDS, Dcsys, Kerridge, CDK. Pour les autres, un simple fichier Excel suffit à démarrer."
+
+═══════════════════════════════════════════════════
+VÉRIFICATION FINALE
+═══════════════════════════════════════════════════
+
+Après tous ces remplacements, vérifie qu'aucun de ces mots n'apparaît encore dans l'interface visible par le client :
+
+  ❌ MRR, ARR, churn, upsell, MVP, lead scoring
+  ❌ DMS (remplacer par "logiciel de gestion")
+  ❌ CRM (remplacer par "outil de suivi client" ou "logiciel client")
+  ❌ After-Sales, Lead Qualification, AutoPilot (noms de plans anglais)
+  ❌ "Les concessions" (parler toujours en "vous" au directeur)
+  ❌ "Les clients existants" (dire "vos clients actuels")
+  ❌ Profil 360°, cycle de données, enrichissement (trop abstrait)
+  ❌ Bundle, upgrade (anglicismes)
+  ❌ Phase 1/2/3 dans les boutons CTA (garder uniquement dans les badges descriptifs)
+
+Ces mots PEUVENT rester dans le code backend, les commentaires et les fichiers de config — uniquement dans ce qui est invisible à l'utilisateur final.

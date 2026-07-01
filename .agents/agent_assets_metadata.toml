@@ -1,0 +1,37 @@
+uploads = []
+
+[[generated]]
+id = "1tuYrecw8rLBVXUy9IUC6"
+uri = "file://chrome-extension/icon128.png"
+type = "image"
+title = "Relanco final icon no text"
+
+[[outputs]]
+id = "msw9VlsILb3NRr_gk5oRo"
+uri = "file://attached_assets/generated_audio/music_relanco_video_music.mp3"
+type = "audio"
+title = "relanco_video_music"
+
+[[outputs]]
+id = "74jnyJz2NRdmECRlJJ4VD"
+uri = "file://attached_assets/relanco_promo_video.mp4"
+type = "video"
+title = "Relanco Promotional Video"
+
+[[outputs]]
+id = "k20Nekn3q8Gme70ukDyw0"
+uri = "file://outputs/relanco-chrome-extension.zip"
+type = "unspecified"
+title = "Relanco — Extension Chrome"
+
+[[outputs]]
+id = "Sgk8sO9tCg3CYF4syQCDe"
+uri = "file://init_supabase.txt"
+type = "text"
+title = "Script SQL complet - Copier-coller dans Supabase"
+
+[[outputs]]
+id = "R_ovqNFr5V4lzX_3h-YMw"
+uri = "file://fix_supabase.txt"
+type = "text"
+title = "fix_supabase.sql (txt) - Script pour utilisateur existant"

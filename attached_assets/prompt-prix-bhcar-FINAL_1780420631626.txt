@@ -1,0 +1,255 @@
+Applique les deux séries de corrections suivantes en une seule passe : (1) correction de la cohérence des prix pour que le Pack Complet représente une vraie économie, et (2) adaptation du module "Réponse Clients" pour gérer les acheteurs ET les vendeurs particuliers (réseau BH Car).
+
+═══════════════════════════════════════════════════════════════════
+CORRECTION 1 — COHÉRENCE DES PRIX
+═══════════════════════════════════════════════════════════════════
+
+PROBLÈME ACTUEL : Les deux modules séparés sont à €149 chacun = €298 au total.
+Le Pack Complet est à €299. Il n'y a donc aucune économie réelle — c'est même plus cher.
+
+NOUVELLE GRILLE DE PRIX (à appliquer partout dans le code) :
+
+  Module "Rappels Auto"      →  €179/mois  (était €149)
+  Module "Réponse Clients"   →  €179/mois  (était €149)
+  Pack Complet               →  €299/mois  (inchangé)
+
+  Calcul de l'économie : €179 + €179 = €358 séparément → €299 en pack = économie de €59/mois
+
+--- REMPLACEMENTS EXACTS DANS LE CODE ---
+
+Partout où "€149" apparaît dans un contexte tarifaire (section tarifs, section modules, section "Comment ça marche") :
+  → Remplacer par "€179/mois"
+
+Partout où le prix du Pack Complet "€299" apparaît :
+  → Conserver €299/mois (ne pas changer)
+
+--- SECTION TARIFS — COL 3 "PACK COMPLET" ---
+
+Sous le prix €299/mois, ajouter ces deux lignes dans l'ordre :
+
+  Ligne 1 (prix barré) :
+    "Au lieu de €358/mois séparément"
+    Style : font-size 13px, color var(--color-text-muted), text-decoration line-through
+
+  Ligne 2 (économie) :
+    "Économisez €59/mois"
+    Style : font-size 14px, color var(--color-success), font-weight 600
+
+Supprimer toute ancienne mention "€49" ou "€298" qui traînerait dans le code.
+
+--- SECTION "COMMENT ÇA MARCHE" (cards 1, 2, 3) ---
+
+Card 1 — "Rappels clients automatiques"
+  Prix affiché : "€179/mois"
+
+Card 2 — "Réponse aux demandes clients"
+  Prix affiché : "€179/mois"
+
+Card 3 — "Pack Complet"
+  Prix affiché : "€299/mois"
+  Ajouter sous le prix : "Soit €59/mois d'économie par rapport aux deux modules séparés"
+  Style : font-size 12px, color var(--color-success)
+
+--- HERO / LANDING — Si le prix est mentionné ---
+
+Remplacer toute occurrence "à partir de €149/mois" par "à partir de €179/mois"
+
+--- LIGNE DE RÉASSURANCE SOUS LES TARIFS ---
+
+Remplacer :
+"Tous les modules sont disponibles immédiatement • Essai gratuit 14 jours • Changement de formule à tout moment • Sans engagement"
+
+Par :
+"Tous les modules disponibles immédiatement • Essai gratuit 14 jours • Sans engagement • Le Pack Complet vous fait économiser €59/mois"
+
+═══════════════════════════════════════════════════════════════════
+CORRECTION 2 — ADAPTATION BH CAR : ACHETEURS ET VENDEURS
+═══════════════════════════════════════════════════════════════════
+
+BH Car est un réseau de ~60 franchisés spécialisés dans la vente de véhicules d'occasion.
+Leurs demandes entrantes viennent de deux types de personnes :
+  - Des ACHETEURS qui cherchent un véhicule d'occasion
+  - Des VENDEURS particuliers qui veulent vendre ou faire estimer leur véhicule
+
+L'agent IA doit gérer les deux avec des workflows distincts.
+
+--- RENOMMAGES ---
+
+Remplace PARTOUT dans le code (interface visible) :
+
+  "Réponse aux demandes d'achat"    →  "Réponse aux demandes clients"
+  "Réponse Leads"                   →  "Réponse Clients"
+  "demandes d'achat reçues"         →  "demandes clients reçues"
+  "demandes d'achat entrantes"      →  "demandes clients entrantes"
+  "Demandes d'achat" (sidebar)      →  "Demandes clients"
+  "acheteurs sérieux"               →  "demandes sérieuses"
+
+--- DESCRIPTION DU MODULE (section "Trois modules") ---
+
+AVANT :
+"Réponse automatique en moins d'une minute, 7j/7 à toutes vos demandes d'achat entrantes. 3 questions pour identifier les acheteurs sérieux. Résumé complet transmis à votre vendeur. Classement automatique par urgence."
+
+APRÈS :
+"Réponse automatique en moins d'une minute, 7j/7 — qu'il s'agisse d'un acheteur qui cherche un véhicule ou d'un particulier qui veut vendre le sien. Chaque demande est qualifiée et transmise au bon interlocuteur dans votre équipe."
+
+--- DESCRIPTION DANS LES TARIFS ---
+
+AVANT :
+"Pour répondre automatiquement à toutes vos demandes d'achat."
+
+APRÈS :
+"Pour répondre automatiquement à toutes vos demandes — acheteurs et vendeurs particuliers."
+
+--- FEATURES DU MODULE "RÉPONSE CLIENTS" ---
+
+Remplacer :
+  "Réponse automatique en moins d'une minute, 7j/7"  →  conserver
+  "3 questions pour identifier les acheteurs sérieux" →  "Qualification automatique acheteurs et vendeurs"
+  "Résumé complet transmis à votre vendeur"           →  "Résumé transmis au bon interlocuteur"
+  "Classement automatique par urgence"                →  conserver
+
+--- BDD — AJOUTER UNE COLONNE ---
+
+Dans le fichier schema.sql ou la migration, ajouter :
+
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS type_demande VARCHAR(20) DEFAULT 'acheteur';
+-- Valeurs : 'acheteur' | 'vendeur' | 'achat_et_vente'
+
+--- TABLEAU /demandes (ex /leads) ---
+
+Ajouter une colonne "Type" entre "Prospect" et "Véhicule" :
+  Badge "Acheteur"       → fond var(--color-info-dim), texte var(--color-info)
+  Badge "Vendeur"        → fond var(--color-success-dim), texte var(--color-success)
+  Badge "Achat + Vente"  → fond var(--color-accent-dim), texte var(--color-accent)
+
+Modifier les filtres tabs :
+  Tous | Urgents | Acheteurs | Vendeurs | En veille | Archivés
+
+--- MODAL FICHE DEMANDE ---
+
+Ajouter champ "Type de demande" en haut : Acheteur / Vendeur / Achat + Vente
+
+Affichage conditionnel :
+  Si type = Acheteur    → afficher : Véhicule recherché, Budget, Délai, Reprise
+  Si type = Vendeur     → afficher : Véhicule à vendre, Kilométrage, Prix souhaité
+  Si type = Achat+Vente → afficher tous les champs
+
+--- METRIC CARD DASHBOARD ---
+
+Card "À traiter aujourd'hui" — modifier le sous-label :
+  AVANT : "À traiter aujourd'hui"
+  APRÈS : afficher dynamiquement "{X} acheteurs · {Y} vendeurs"
+
+--- FAQ — AJOUTER UNE QUESTION ---
+
+Ajouter à la fin de la liste FAQ :
+
+Question : "Relanco gère-t-il aussi les demandes de vente de particuliers ?"
+Réponse : "Oui. En plus des acheteurs, Relanco répond automatiquement aux particuliers qui souhaitent vendre ou faire estimer leur véhicule. Chaque demande est identifiée, qualifiée et transmise au bon interlocuteur dans votre équipe."
+
+--- HERO LANDING — AJOUTER UNE LIGNE ---
+
+Sous le sous-titre principal du hero, ajouter :
+"Compatible avec les réseaux de franchisés, groupes multi-sites et concessions indépendantes."
+Style : font-size 13px, color var(--color-text-muted), margin-top 8px, text-align center
+
+--- SYSTEM PROMPT AGENT IA ---
+
+Dans server/services/anthropic.js, remplacer le system prompt de qualification par :
+
+"Tu es l'assistant de {concession_name}, spécialisé dans la vente de véhicules d'occasion.
+Tu réponds à toutes les demandes entrantes — acheteurs et vendeurs particuliers.
+
+═══ ÉTAPE 1 — IDENTIFIER LE TYPE DE DEMANDE ═══
+
+Avant toute qualification, détermine si la personne veut :
+  A) ACHETER un véhicule
+  B) VENDRE ou faire ESTIMER son véhicule
+  C) Les deux (acheter + vendre son véhicule actuel)
+
+Si le message entrant ne le précise pas clairement, pose cette seule question en premier :
+'Bonjour ! Vous souhaitez acheter un véhicule, vendre le vôtre, ou les deux ?'
+
+═══ SI ACHETEUR (A ou C) ═══
+
+Qualifie en 3 questions dans l'ordre :
+  Q1 : 'Quel type de véhicule recherchez-vous ? Vous avez une idée du modèle ou du budget ?'
+  Q2 : 'Vous souhaitez acheter dans quel délai ?'
+  Q3 si C : 'Vous avez un véhicule à vendre en même temps ?'
+
+Classification :
+  URGENT  = délai < 2 semaines ET budget défini
+  SÉRIEUX = délai < 2 mois
+  EN VEILLE = délai > 2 mois ou vague
+
+Fiche à produire :
+[DEMANDE ACHAT — {DATE}]
+Type : Acheteur
+Contact : {prenom} — {telephone}
+Véhicule recherché : [réponse]
+Budget : [réponse]
+Délai : [réponse]
+Reprise/Vente simultanée : [oui/non]
+Urgence : URGENT / SÉRIEUX / EN VEILLE
+
+═══ SI VENDEUR (B) ═══
+
+Qualifie en 3 questions dans l'ordre :
+  Q1 : 'Quel est le véhicule que vous souhaitez vendre ? (marque, modèle, année)'
+  Q2 : 'Quel est le kilométrage approximatif ?'
+  Q3 : 'Vous avez une idée du prix souhaité, ou préférez-vous une estimation gratuite de notre part ?'
+
+Règles vendeur :
+  Toujours proposer une estimation gratuite sans engagement
+  Jamais donner un prix ferme sans avoir vu le véhicule
+  Si le client insiste sur un prix → 'Nous pouvons vous donner une fourchette précise après inspection. C'est gratuit et sans engagement.'
+  Rassurer sur la simplicité et la rapidité de la démarche
+
+Fiche à produire :
+[DEMANDE VENTE — {DATE}]
+Type : Vendeur particulier
+Contact : {prenom} — {telephone}
+Véhicule à vendre : [marque] [modèle] [année]
+Kilométrage : [réponse]
+Prix souhaité : [réponse ou 'estimation demandée']
+Action : Rappeler pour estimation
+
+═══ RÈGLES COMMUNES ═══
+
+Ton : chaleureux, rassurant, professionnel. Vouvoiement.
+Maximum 2 phrases par message. Une seule question à la fois.
+Pas de jargon automobile sauf si le client l'utilise en premier.
+Toujours terminer par une action claire.
+Jamais > 160 caractères si canal = SMS.
+Jamais promettre un prix ferme sans inspection.
+Jamais créer une urgence artificielle.
+Si la personne demande à être rappelée → collecter heure de disponibilité.
+Si agressif ou hors sujet → 'Je transmets votre message à notre équipe. À très vite !'
+
+MESSAGE : {message_lead}
+HISTORIQUE : {historique}
+PRÉNOM : {prenom}
+CANAL : {canal}
+CONCESSION : {concession_name}
+
+Génère uniquement ta réponse. Rien d'autre."
+
+═══════════════════════════════════════════════════════════════════
+VÉRIFICATION FINALE
+═══════════════════════════════════════════════════════════════════
+
+Prix :
+  ✓ Module Rappels Auto    = €179/mois partout
+  ✓ Module Réponse Clients = €179/mois partout
+  ✓ Pack Complet           = €299/mois avec "Économisez €59/mois" visible
+  ✓ Prix barré "€358/mois" affiché sur le Pack Complet
+  ✓ Aucune mention de €149, €298, €399 ou €49 d'économie
+
+Textes BH Car :
+  ✓ "Réponse aux demandes clients" partout (plus "d'achat")
+  ✓ System prompt gère acheteurs ET vendeurs
+  ✓ Badge type demande dans le tableau (Acheteur / Vendeur / Achat+Vente)
+  ✓ Filtres mis à jour dans /demandes
+  ✓ FAQ enrichie avec la question vendeurs
+  ✓ Hero mentionne les réseaux franchisés
+  ✓ Colonne type_demande ajoutée à la BDD

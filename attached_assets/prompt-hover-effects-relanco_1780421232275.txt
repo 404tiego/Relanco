@@ -1,0 +1,198 @@
+Restaure et améliore tous les effets visuels au survol (hover) sur les cards de la landing page — tarifs, modules et avantages. Le problème : les corrections précédentes ont supprimé les effets hover. Il faut les remettre, en mieux.
+
+═══════════════════════════════════════════════════════════════════
+RÈGLE GÉNÉRALE HOVER — À APPLIQUER SUR TOUTES LES CARDS
+═══════════════════════════════════════════════════════════════════
+
+Toute card interactive doit avoir cette transition de base :
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+
+═══════════════════════════════════════════════════════════════════
+CARDS TARIFS (section "Des tarifs alignés sur la valeur")
+═══════════════════════════════════════════════════════════════════
+
+Les 3 cards tarifaires doivent avoir des effets hover distincts selon leur importance :
+
+--- Card 1 "Rappels Auto" (card standard) ---
+
+État normal :
+  background: var(--color-surface)
+  border: 1px solid var(--color-border)
+  border-radius: var(--radius-lg)
+  transform: scale(1)
+  box-shadow: none
+  opacity: 1
+
+État hover :
+  transform: translateY(-6px) scale(1.01)
+  border-color: var(--color-border-strong)
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4)
+
+--- Card 2 "Réponse Clients" (card standard) ---
+
+Mêmes effets que Card 1.
+
+--- Card 3 "Pack Complet" (card accent — mise en avant) ---
+
+État normal :
+  background: var(--color-bg-3)
+  border: 1px solid var(--color-accent-border)
+  box-shadow: 0 0 0 1px var(--color-accent-border), inset 0 0 40px var(--color-accent-glow)
+  transform: scale(1.03)   ← légèrement plus grande au repos déjà
+
+État hover :
+  transform: scale(1.06)
+  border-color: var(--color-accent-light)
+  box-shadow: 0 0 0 1px var(--color-accent-light),
+              inset 0 0 60px rgba(212,168,67,0.10),
+              0 24px 48px rgba(212,168,67,0.15)
+
+Le badge "RECOMMANDÉ" sur cette card doit aussi pulser légèrement :
+  @keyframes badge-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212,168,67,0.4); }
+    50%       { box-shadow: 0 0 0 6px rgba(212,168,67,0); }
+  }
+  .badge-recommande { animation: badge-pulse 2.5s ease-in-out infinite; }
+
+═══════════════════════════════════════════════════════════════════
+CARDS MODULES (section "Trois modules, un seul cycle")
+═══════════════════════════════════════════════════════════════════
+
+--- Cards 1 et 2 (Essentiel, Avancé) ---
+
+État normal :
+  background: var(--color-surface)
+  border: 1px solid var(--color-border)
+  transform: scale(1)
+  box-shadow: none
+
+État hover :
+  transform: translateY(-8px)
+  border-color: var(--color-border-hover)
+  box-shadow: 0 16px 32px rgba(0,0,0,0.35)
+
+  L'icône Lucide dans la card change aussi au hover :
+    background: var(--color-accent-dim) → plus lumineux : rgba(212,168,67,0.18)
+    color: var(--color-accent-light)
+    transform: scale(1.1)
+    transition: all 0.2s ease
+
+--- Card 3 "Complet — Recommandé" ---
+
+État normal :
+  background: var(--color-bg-3)
+  border: 1px solid var(--color-accent-border)
+  box-shadow: inset 0 0 40px var(--color-accent-glow)
+  transform: scale(1)
+
+État hover :
+  transform: translateY(-8px) scale(1.02)
+  border-color: var(--color-accent)
+  box-shadow: inset 0 0 60px rgba(212,168,67,0.10),
+              0 20px 40px rgba(212,168,67,0.12)
+
+═══════════════════════════════════════════════════════════════════
+CARDS AVANTAGES (section "Pourquoi Relanco ?")
+═══════════════════════════════════════════════════════════════════
+
+État normal :
+  background: var(--color-surface)
+  border: 1px solid var(--color-border)
+  transform: scale(1)
+
+État hover :
+  transform: translateY(-4px)
+  border-color: var(--color-accent-border)
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25)
+
+  L'icône au hover :
+    color: var(--color-accent-light)
+    transition: color 0.2s ease
+
+═══════════════════════════════════════════════════════════════════
+CARDS "COMMENT ÇA MARCHE" (section stratégie)
+═══════════════════════════════════════════════════════════════════
+
+Card 1 active (accent or) :
+  hover → box-shadow: 0 16px 40px rgba(212,168,67,0.15), transform: translateY(-4px)
+
+Cards 2 et 3 (inactives, opacity 0.7) :
+  hover → opacity: 1 (s'illuminent au survol), transform: translateY(-4px)
+  border-color: var(--color-border-hover)
+
+═══════════════════════════════════════════════════════════════════
+ITEMS FAQ (accordéon)
+═══════════════════════════════════════════════════════════════════
+
+Header accordéon au hover :
+  background: var(--color-surface-2)
+  cursor: pointer
+  transition: background 0.15s ease
+
+Quand un item est ouvert (état actif) :
+  border-color: var(--color-accent-border)
+  L'icône ChevronDown → color: var(--color-accent)
+
+═══════════════════════════════════════════════════════════════════
+BOUTONS CTA — EFFETS HOVER
+═══════════════════════════════════════════════════════════════════
+
+Bouton primaire or (tous) :
+  hover: background var(--color-accent-light), transform translateY(-2px),
+         box-shadow 0 8px 24px rgba(212,168,67,0.35)
+  active: transform scale(0.97), box-shadow none
+
+Bouton secondaire (tous) :
+  hover: border-color var(--color-border-strong), background var(--color-surface),
+         transform translateY(-1px)
+  active: transform scale(0.98)
+
+═══════════════════════════════════════════════════════════════════
+CSS GLOBAL À AJOUTER DANS index.css
+═══════════════════════════════════════════════════════════════════
+
+Ajoute ces règles globales pour que tous les effets soient cohérents :
+
+/* Cards interactives — base */
+.card-interactive {
+  transition: transform 0.25s ease,
+              border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              opacity 0.25s ease;
+  cursor: default;
+}
+
+/* Icônes dans les cards */
+.card-icon {
+  transition: transform 0.2s ease,
+              background 0.2s ease,
+              color 0.2s ease;
+}
+
+/* Désactiver les effets sur mobile (performance) */
+@media (hover: none) {
+  .card-interactive:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Curseur pointer sur les cards tarifaires */
+.pricing-card {
+  cursor: pointer;
+}
+
+═══════════════════════════════════════════════════════════════════
+VÉRIFICATION FINALE
+═══════════════════════════════════════════════════════════════════
+
+  ✓ Cards tarifs : translateY(-6px) + border plus lumineuse au hover
+  ✓ Pack Complet : scale(1.03) au repos, scale(1.06) au hover + glow or
+  ✓ Badge "RECOMMANDÉ" : animation pulse subtile
+  ✓ Cards modules : translateY(-8px) + icône qui s'illumine au hover
+  ✓ Cards avantages : translateY(-4px) + border or au hover
+  ✓ FAQ : fond légèrement plus clair au hover + icône or quand ouvert
+  ✓ Boutons : translateY + glow or au hover sur le CTA primaire
+  ✓ Transitions fluides partout (0.25s ease)
+  ✓ Effets désactivés sur mobile (media query hover: none)
+  ✓ Aucune régression sur les corrections précédentes

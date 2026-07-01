@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Relanco — Assistant IA",
+  "version": "1.0",
+  "description": "Répondez à vos clients LeBonCoin et La Centrale en 1 clic grâce à l'IA",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "host_permissions": [
+    "https://*.leboncoin.fr/*",
+    "https://*.lacentrale.fr/*",
+    "https://03fa9b82-b406-4358-a781-aca27a246b51-00-2l3tqh8rqx12t.worf.replit.dev/*"
+  ],
+  "content_scripts": [{
+    "matches": [
+      "https://www.leboncoin.fr/mes-messages/*",
+      "https://www.leboncoin.fr/messagerie/*",
+      "https://www.lacentrale.fr/*messages*"
+    ],
+    "js": ["content.js"],
+    "css": ["content.css"]
+  }],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": { "128": "icon128.png" }
+  },
+  "background": { "service_worker": "background.js" }
+}

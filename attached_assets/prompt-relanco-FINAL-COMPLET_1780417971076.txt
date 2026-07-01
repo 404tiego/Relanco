@@ -1,0 +1,870 @@
+Tu es un expert en développement de SaaS B2B premium et en design système. Construis de zéro (ou refonds entièrement) un SaaS complet pour les concessions automobiles françaises appelé Relanco.
+
+Ce prompt est exhaustif et auto-suffisant. Il contient tout : la DA, les pages, le backend, l'agent IA, les données d'exemple. Suis-le de A à Z sans improviser.
+
+╔══════════════════════════════════════════════════════════════════╗
+║  RELANCO — SaaS IA pour concessions automobiles françaises       ║
+║  "L'IA qui relance vos clients. Automatiquement."                ║
+╚══════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════
+PARTIE 0 — IDENTITÉ ET STACK TECHNIQUE
+═══════════════════════════════════════════════════════════════════
+
+PRODUIT : Relanco
+TAGLINE : "L'IA qui relance vos clients. Automatiquement."
+CIBLE : Directeurs et responsables commerciaux de concessions automobiles en France
+TYPE : SaaS B2B
+
+STACK :
+  Frontend  : React + Tailwind CSS + Lucide React (icônes uniquement)
+  Backend   : Node.js + Express
+  BDD       : PostgreSQL
+  IA        : Anthropic API (claude-sonnet-4-20250514)
+  SMS       : Twilio
+  Email     : Brevo
+  Paiement  : Stripe
+  Cron      : node-cron
+  Auth      : JWT + bcrypt
+  Déploiement : Replit (utilise les Secrets pour toutes les clés API)
+
+DÉPENDANCES BACKEND :
+  express, pg, @anthropic-ai/sdk, cors, dotenv, node-cron, bcrypt, jsonwebtoken, twilio, nodemailer
+
+DÉPENDANCES FRONTEND :
+  @tanstack/react-query, lucide-react, react-router-dom, axios, react-hook-form
+
+META :
+  title       : "Relanco — Automatisez vos relances et leads auto par IA"
+  description : "Relanco répond à vos leads en 60 secondes et relance vos clients au bon moment. Conçu pour les concessions automobiles françaises."
+  favicon     : lettre R dorée sur fond noir
+
+REMPLACER PARTOUT si présent dans le code existant :
+  "Decorilla"  →  "Relanco"
+  "SaaSify"    →  "Relanco"
+  violet/purple (#6366f1, #7c3aed, #8b5cf6)  →  or (#D4A843)
+  fond gris clair (#F1F1F6, #f3f4f6)  →  fond noir (#08090A)
+
+═══════════════════════════════════════════════════════════════════
+PARTIE 1 — CHARTE GRAPHIQUE COMPLÈTE
+═══════════════════════════════════════════════════════════════════
+
+PRINCIPE DESIGN : Automobile premium noir/or. Pense Porsche, BMW M, Audi RS.
+Sobre, confiant, haut de gamme. Zéro template générique.
+
+--- VARIABLES CSS (à définir dans index.css ou variables globales) ---
+
+:root {
+  --color-bg: #08090A;
+  --color-bg-2: #0F1013;
+  --color-bg-3: #16181C;
+  --color-surface: #1C1E23;
+  --color-surface-2: #23262C;
+
+  --color-border: rgba(255,255,255,0.07);
+  --color-border-hover: rgba(255,255,255,0.14);
+  --color-border-strong: rgba(255,255,255,0.22);
+
+  --color-accent: #D4A843;
+  --color-accent-light: #E8C068;
+  --color-accent-dark: #B8902F;
+  --color-accent-dim: rgba(212,168,67,0.10);
+  --color-accent-border: rgba(212,168,67,0.22);
+  --color-accent-glow: rgba(212,168,67,0.06);
+
+  --color-text-primary: #F2F3F5;
+  --color-text-secondary: #8B8F99;
+  --color-text-muted: #50545E;
+  --color-text-accent: #D4A843;
+
+  --color-success: #22C55E;
+  --color-success-dim: rgba(34,197,94,0.10);
+  --color-warning: #F59E0B;
+  --color-warning-dim: rgba(245,158,11,0.10);
+  --color-danger: #EF4444;
+  --color-danger-dim: rgba(239,68,68,0.10);
+  --color-info: #60A5FA;
+  --color-info-dim: rgba(96,165,250,0.10);
+
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+}
+
+--- TYPOGRAPHIE ---
+
+Google Fonts : Inter (300,400,500,600,700,800) + JetBrains Mono (400,500)
+
+body         : font-family var(--font-sans), color var(--color-text-primary), background var(--color-bg), font-size 15px, line-height 1.6
+h1           : font-size clamp(36px,5vw,58px), font-weight 800, letter-spacing -0.04em, line-height 1.05
+h2           : font-size clamp(26px,3.5vw,38px), font-weight 700, letter-spacing -0.03em
+h3           : font-size 20px, font-weight 600, letter-spacing -0.02em
+Chiffres/KPI : font-family var(--font-mono)
+
+--- COMPOSANTS DE BASE ---
+
+Bouton primaire (fond or) :
+  background var(--color-accent), color #08090A, font-weight 700, font-size 14px
+  padding 12px 24px, border-radius var(--radius-pill), border none
+  hover → background var(--color-accent-light), transform translateY(-1px), box-shadow 0 4px 20px rgba(212,168,67,0.3)
+  active → transform scale(0.98)
+
+Bouton secondaire :
+  background transparent, color var(--color-text-primary)
+  border 1px solid var(--color-border-hover), padding 11px 24px, border-radius var(--radius-pill), font-weight 500
+  hover → border-color var(--color-border-strong), background var(--color-surface)
+
+Bouton ghost :
+  background transparent, color var(--color-text-secondary), border none, padding 8px 16px
+  hover → color var(--color-text-primary)
+
+Card standard :
+  background var(--color-surface), border 1px solid var(--color-border)
+  border-radius var(--radius-lg), padding 24px
+  hover → border-color var(--color-border-hover), transform translateY(-2px)
+  transition all 0.2s ease
+
+Card accent (mise en avant) :
+  background var(--color-bg-3), border 1px solid var(--color-accent-border)
+  box-shadow 0 0 0 1px var(--color-accent-border), inset 0 0 40px var(--color-accent-glow)
+  border-radius var(--radius-lg), padding 28px
+
+Badge pill :
+  font-size 11px, font-weight 600, padding 3px 10px, border-radius var(--radius-pill)
+
+Badge "Phase 1 — Disponible" → background var(--color-success-dim), color var(--color-success), border 1px solid rgba(34,197,94,0.2)
+Badge "Phase 2 — Mois 3-4"  → background var(--color-warning-dim), color var(--color-warning), border 1px solid rgba(245,158,11,0.2)
+Badge "Phase 3 — Mois 6-8"  → background var(--color-info-dim), color var(--color-info), border 1px solid rgba(96,165,250,0.2)
+Badge "RECOMMANDÉ"           → background var(--color-accent), color #08090A, font-weight 700
+
+Badge statut lead CHAUD  → background rgba(239,68,68,0.12), color #F87171, border 1px solid rgba(239,68,68,0.2)
+Badge statut lead TIÈDE  → background rgba(245,158,11,0.12), color #FBB724, border 1px solid rgba(245,158,11,0.2)
+Badge statut lead FROID  → background rgba(96,165,250,0.12), color #93C5FD, border 1px solid rgba(96,165,250,0.2)
+
+Icônes : Lucide React uniquement, taille 18px standard, couleur var(--color-text-secondary)
+Divider : border-top 1px solid var(--color-border)
+
+--- ANIMATIONS ---
+
+@keyframes pulse-dot {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:0.5; transform:scale(0.8); }
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+Scroll reveal (Intersection Observer) sur : cards modules, avantages, plans
+  Délai progressif 0ms / 100ms / 200ms pour groupes de 3
+
+═══════════════════════════════════════════════════════════════════
+PARTIE 2 — LANDING PAGE PUBLIQUE (route /)
+═══════════════════════════════════════════════════════════════════
+
+--- NAVBAR ---
+position sticky, top 0, z-index 100
+background rgba(8,9,10,0.85), backdrop-filter blur(16px) saturate(180%)
+border-bottom 1px solid var(--color-border), height 60px, padding 0 40px
+
+Logo gauche : "■ Relanco" — le ■ en color var(--color-accent) font-size 20px, "Relanco" en font-weight 700 font-size 17px
+Nav centre : Fonctionnalités | Roadmap | Tarifs | FAQ — style ghost, hover background var(--color-surface)
+Droite : bouton ghost "Connexion" + bouton primaire or "Essai Gratuit"
+
+--- HERO ---
+Centré, max-width 760px, padding 120px 24px 80px
+
+Tag pulsant : "● Lancement Phase 1 — Relances Après-Vente"
+  font-size 13px, color var(--color-accent), .pulse-dot animation
+
+H1 (3 lignes) :
+  ligne 1 : "L'IA qui transforme" — couleur var(--color-text-primary)
+  ligne 2 : "les visites" — couleur var(--color-text-primary)
+  ligne 3 : "atelier en revenus" — gradient text or
+    background linear-gradient(135deg,#E8C068 0%,#D4A843 40%,#B8902F 100%)
+    -webkit-background-clip text, -webkit-text-fill-color transparent
+
+Sous-titre : "Relanco automatise les relances après-vente et qualifie vos leads entrants en 60 secondes. Un seul cycle de données : du premier lead au 3ème achat."
+  font-size 17px, color var(--color-text-secondary), max-width 540px, margin auto
+
+CTAs :
+  "Essai Gratuit 14 Jours →" → bouton primaire, padding 14px 28px
+  "Voir la Roadmap" → bouton secondaire
+
+Réassurance :
+  "✓ Sans intégration CRM complexe  ✓ Connexion DMS simple  ✓ Setup en 4–6 semaines"
+  font-size 13px, color var(--color-text-muted), ✓ en color var(--color-success)
+
+--- BANDE STATS (entre hero et modules) ---
+background var(--color-bg-2), border-top + border-bottom 1px solid var(--color-border)
+padding 32px 40px, grid 4 colonnes, séparateur vertical entre chaque
+
+  "60s"   → "Délai de réponse aux leads"
+  "+27%"  → "Taux de conversion qualifiés"
+  "80%"   → "Clients relancés qui reviennent"
+  "< 6%"  → "Churn cible sur le pack AutoPilot"
+
+Chiffre : font-mono, font-size 32px, font-weight 700, color var(--color-accent)
+Label   : font-size 13px, color var(--color-text-secondary)
+
+--- SECTION "TROIS MODULES, UN SEUL CYCLE" ---
+Titre H2 : "Trois modules, un seul cycle"
+Sous-titre : "Chaque module génère des données qui enrichissent les autres. C'est le cycle de vie complet du client qui crée le vrai avantage."
+
+3 cards (grid 3 colonnes) :
+
+  Card 1 — badge "Phase 1 — Disponible" / icône Wrench
+    Titre : "Relances Après-Vente"
+    Corps : "Rappel CT automatique J-30 et J-7 (SMS + email). Relance entretien au km prédit. Offre de reprise déclenchée au bon moment. Tableau de bord taux de retour atelier."
+
+  Card 2 — badge "Phase 2 — Mois 3-4" / icône Bot
+    Titre : "Qualification des Leads"
+    Corps : "Réponse IA aux leads en <60 secondes 24h/24. 3 questions de qualification (budget, délai, reprise). Fiche enrichie livrée dans le CRM. Score de priorité pour les vendeurs."
+
+  Card 3 — badge "Phase 3 — Mois 6-8" / icône TrendingUp
+    Titre : "Pack AutoPilot"
+    Corps : "Données leads → historique client post-vente. Profil 360° du 1er contact au 3ème achat. Prédiction du prochain achat par IA. Rapport ROI mensuel pour le directeur."
+
+--- SECTION "POURQUOI RELANCO ?" ---
+Titre H2 : "Pourquoi Relanco ?"
+Sous-titre : "Pas des features isolées. Un cycle de données qui se referme : du premier lead au 3ème achat."
+
+6 avantages en grille 2 colonnes, chaque avantage = card avec icône Lucide or :
+
+  Churn quasi nul — "Les données client couvrent tout le cycle de vie. Du lead au rachat, tout est connecté."
+  Upsell naturel — "Commencez par les relances après-vente à €149/mois. Les concessions ajoutent la qualification des leads quand elles voient les résultats."
+  Cycle vertueux — "Le comportement après-vente enrichit la qualification des leads. Les données s'améliorent avec le temps."
+  Données enrichies — "Le comportement après-vente (entretiens, CT, réparations) améliore la qualité des leads entrants. Chaque donnée sert deux fois."
+  Un seul interlocuteur — "Le directeur de concession n'a pas besoin de jongler entre 5 outils. Un seul dashboard, un seul fournisseur."
+  MVP rapide — "4-6 semaines de build pour le module après-vente. Zéro intégration CRM complexe au début. Juste connexion DMS + SMS/email."
+
+--- SECTION "STRATÉGIE DE LANCEMENT" ---
+Titre H2 : "Stratégie de lancement"
+Sous-titre : "Ne pas tout builder en même temps. Valide chaque module avant de passer au suivant."
+
+3 cards timeline verticale :
+
+  Card 1 (active, card accent or) — numéro "1" en cercle or
+    Titre : "Relances Après-Vente" / sous-titre : "Maintenant" / prix : "€149/mois"
+    Corps : "MVP le plus simple. Connexion DMS + SMS/email automatiques. Rappel CT J-30/J-7, relance entretien au km prédit, offre de reprise. Zéro intégration CRM complexe."
+    Features pills : Rappel CT automatique | Relance entretien au km | Offre de reprise déclenchée | Dashboard taux de retour atelier
+
+  Card 2 (inactif, opacity 0.7) — numéro "2"
+    Titre : "Qualification des Leads" / "Mois 3-4" / "€149/mois"
+    Corps : "Quand vous avez 10–20 concessions clientes. Agent IA de réponse aux leads. Les clients existants upgradent naturellement — vous avez déjà leur confiance."
+    Features pills : Réponse IA <60 sec | 3 questions qualification | Fiche enrichie CRM | Score priorité vendeur
+
+  Card 3 (inactif, opacity 0.7) — numéro "3"
+    Titre : "Pack AutoPilot Combiné" / "Mois 6-8" / "€399/mois"
+    Corps : "Les deux modules bundlés. Le cycle de données se ferme : leads → achat → relance → rachat. Churn quasi nul parce que les données couvrent tout le cycle."
+    Features pills : Profil 360° client | Prédiction prochain achat | Rapport ROI mensuel | Contenu IA intégré
+
+--- SECTION TARIFS ---
+Titre H2 : "Des tarifs alignés sur la valeur"
+Sous-titre : "Commencez par un module, augmentez quand vous voyez les résultats. Le combo est le prix le plus avantageux."
+
+3 colonnes :
+
+  Col 1 — "After-Sales" — €149/mois (card standard)
+    Description : "Relances automatiques et suivi après-vente."
+    Features : Rappel CT J-30 / J-7 | Relance entretien au km | Offre de reprise automatique | Dashboard taux retour atelier | Connexion DMS | SMS + Email automatiques
+    CTA : "Démarrer la Phase 1" (bouton secondaire full-width)
+
+  Col 2 — "Lead Qualification" — €149/mois (card standard)
+    Description : "Agent IA de réponse et qualification des leads."
+    Features : Réponse IA <60 sec 24h/24 | 3 questions de qualification | Fiche enrichie dans le CRM | Score priorité lead | Intégration CRM | Contenu IA bonus
+    CTA : "Disponible Mois 3-4" (bouton désactivé, opacity 0.4)
+
+  Col 3 — "AutoPilot" — €399/mois (card accent or + badge RECOMMANDÉ)
+    Description : "Les deux modules combinés. Cycle de vie complet."
+    Features : Tout After-Sales + Leads | Profil 360° client | Prédiction prochain achat | Rapport ROI mensuel | Contenu IA intégré | Churn inférieur à 6% garanti
+    CTA : "Le Meilleur Choix" (bouton primaire or full-width)
+
+Pied de section : "Métriques cibles : €80K MRR en 18 mois • Churn cible inférieur à 6% (combo) • Essai gratuit 14 jours"
+
+--- SECTION FAQ ---
+Titre H2 : "Questions Fréquentes"
+Sous-titre : "Réponses directes aux vraies questions des directeurs de concession."
+
+5 accordéons :
+  "Combien de temps pour le setup ?" 
+    → "Entre 4 et 6 semaines pour le module Relances Après-Vente. Pas besoin de changer votre logiciel de gestion existant. On se connecte par-dessus."
+  "Mon DMS est-il compatible ?"
+    → "Nous supportons les principaux DMS français : IDS, Dcsys, Kerridge, CDK. Pour les autres, un export CSV hebdomadaire suffit à démarrer."
+  "Puis-je commencer par un seul module ?"
+    → "Oui, c'est même ce qu'on recommande. Commencez par les relances après-vente à 149€/mois. Vous ajoutez la qualification des leads quand vous voyez les résultats."
+  "Les données de mes clients sont-elles sécurisées ?"
+    → "Vos données sont hébergées en France (OVH), chiffrées au repos et en transit. Conformité RGPD totale. Vous restez propriétaire de vos données à 100%."
+  "Quel est le ROI moyen ?"
+    → "En moyenne, nos concessions récupèrent 15 à 27% de leads perdus le premier mois. Le module after-sales génère un retour moyen de 8x le coût de l'abonnement en revenus atelier récupérés."
+
+--- FOOTER ---
+background var(--color-bg-2), border-top 1px solid var(--color-border), padding 40px
+
+Gauche : "■ Relanco" + "© 2025 Relanco. Tous droits réservés."
+Droite  : Mentions Légales | CGU | Confidentialité
+
+═══════════════════════════════════════════════════════════════════
+PARTIE 3 — PAGES D'AUTHENTIFICATION
+═══════════════════════════════════════════════════════════════════
+
+ROUTE /login :
+  Fond var(--color-bg), centré verticalement
+  Logo "■ Relanco" centré en haut
+  Card (surface, border, border-radius-lg, padding 32px, width 400px) :
+    Titre "Connectez-vous à Relanco"
+    Sous-titre "Votre concession vous attend."
+    Input email + input password (fond var(--color-bg-2), border, border-radius-md, padding 10px 14px)
+    Bouton primaire "Se connecter →" (full-width)
+    Lien "Mot de passe oublié ?" (couleur var(--color-text-muted))
+    Lien "Pas encore de compte ? Essai gratuit 14 jours" (couleur var(--color-accent))
+  Gestion erreurs : message rouge sous le formulaire si identifiants incorrects
+  Redirection vers /dashboard si succès
+
+ROUTE /register :
+  Même style que /login
+  Titre "Créez votre compte Relanco"
+  Sous-titre "14 jours gratuits, sans carte bancaire."
+  Champs : Prénom | Nom de concession | Email | Mot de passe | Téléphone
+  Bouton primaire "Créer mon compte →"
+  Lien "Déjà un compte ? Se connecter"
+  Redirection vers /onboarding si succès
+
+ROUTE /onboarding :
+  3 étapes avec barre de progression (fond or)
+  Étape 1 — "Configurez votre concession" :
+    Champs : Nom commercial | Adresse | Téléphone | Logo (upload optionnel)
+    CTA "Suivant →"
+  Étape 2 — "Importez vos premiers clients" :
+    Bouton "Télécharger le modèle CSV"
+    Zone drag & drop CSV
+    OU "Ajouter manuellement (1 client)" avec mini-formulaire
+    CTA "Suivant →" + lien "Passer cette étape (je ferai ça plus tard)"
+  Étape 3 — "Testez votre premier SMS" :
+    Champ "Votre numéro de téléphone (pour tester)"
+    Bouton "Envoyer le SMS de test"
+    Message de confirmation une fois envoyé
+    CTA "Accéder à mon dashboard →"
+  Redirection vers /dashboard
+
+COMPTE DÉMO (accessible sans inscription) :
+  email    : demo@relanco.fr
+  password : demo2025
+  Concession : "Garage Moreau Automobiles" — Lyon 6e
+
+═══════════════════════════════════════════════════════════════════
+PARTIE 4 — DASHBOARD (routes protégées, JWT requis)
+═══════════════════════════════════════════════════════════════════
+
+LAYOUT GLOBAL (s'applique à toutes les routes /dashboard*) :
+
+Sidebar fixe gauche (240px) :
+  background var(--color-bg-2), border-right 1px solid var(--color-border)
+  
+  En haut : logo "■ Relanco" (font-size 15px, padding 20px)
+  
+  Navigation (icônes Lucide + labels) :
+    LayoutDashboard  "Tableau de bord"  → /dashboard
+    Zap              "Leads"            → /leads
+    Users            "Clients"          → /clients
+    MessageSquare    "Relances"         → /relances
+    BarChart2        "Rapports"         → /rapports
+    Settings         "Paramètres"       → /settings
+    HelpCircle       "Aide"             → /help
+
+  Item actif : background var(--color-accent-dim), color var(--color-accent), border-right 2px solid var(--color-accent)
+  Item inactif : color var(--color-text-secondary), hover background var(--color-surface)
+
+  En bas : 
+    Avatar initiales (cercle 36px, background var(--color-accent-dim), color var(--color-accent))
+    Nom concession (font-weight 600, font-size 13px)
+    Plan actuel (font-size 11px, color var(--color-text-muted))
+    Bouton logout (icône LogOut, ghost)
+
+Zone contenu : margin-left 240px, padding 32px, background var(--color-bg)
+
+--- ROUTE /dashboard ---
+
+Header :
+  "Bonjour Julien 👋" (font-size 22px, font-weight 700)
+  Date du jour en dessous (format : "Mardi 3 juin 2025", font-size 13px, color var(--color-text-muted))
+  Bouton droit : "Simuler les relances du jour" (bouton secondaire + icône Play)
+
+4 metric cards (grid 4 colonnes, gap 12px) :
+  Chaque card : background var(--color-surface), border 1px solid var(--color-border), border-radius-md, padding 20px
+  
+  Card 1 — icône Zap (or) :
+    Label "Leads cette semaine"
+    Valeur "12" (font-mono, font-size 28px, font-weight 700)
+    Variation "+3 vs semaine précédente" (couleur success si positif)
+  
+  Card 2 — icône Flame (danger) :
+    Label "Leads chauds en attente"
+    Valeur "3" (couleur var(--color-danger))
+    Sous-label "À traiter aujourd'hui" (font-size 11px)
+    Si valeur > 0 : border-color rgba(239,68,68,0.3)
+  
+  Card 3 — icône MessageSquare :
+    Label "SMS envoyés ce mois"
+    Valeur "847"
+    Sous-label "Limite : illimité"
+  
+  Card 4 — icône AlertTriangle (warning) :
+    Label "CT à relancer (30j)"
+    Valeur "23" (couleur var(--color-warning))
+    Sous-label "Dont 4 dans moins de 7 jours"
+    Si valeur > 0 : border-color rgba(245,158,11,0.3)
+
+Section principale (2 colonnes, ratio 60/40) :
+
+  Colonne gauche — Derniers leads reçus :
+    Titre "Derniers leads" + lien "Voir tous →" (couleur accent)
+    Tableau :
+      Colonnes : Prospect | Véhicule | Source | Statut | Il y a | Action
+      6 lignes d'exemple (voir données d'exemple partie 7)
+      Badge statut coloré (CHAUD/TIÈDE/FROID)
+      Bouton action "Voir" → ouvre modal fiche lead
+
+  Colonne droite — Relances du jour :
+    Titre "À envoyer aujourd'hui"
+    Liste items :
+      Chaque item : avatar initiales + "Prénom N. — Véhicule — Type relance" + bouton "Envoyer"
+      Bouton "Envoyer" → appelle POST /api/agent/generate-relance puis envoie SMS
+    Si liste vide : "Aucune relance prévue aujourd'hui ✓" (couleur success)
+
+--- ROUTE /leads ---
+
+Header : "Leads entrants" + bouton "Exporter CSV"
+
+Filtres (horizontal) :
+  Tabs : Tous | Chauds | Tièdes | Froids | Archivés
+  Filtre source : select (Toutes sources | LeBonCoin | La Centrale | Site web | Email)
+  Filtre date : date picker range
+  Recherche : input "Rechercher un nom ou véhicule..."
+
+Tableau :
+  Colonnes : Date | Prospect | Véhicule demandé | Prix | Source | Statut | Délai achat | Reprise | Vendeur | Actions
+  Pagination 20 items/page
+  10 lignes d'exemple (voir données d'exemple)
+  Tri par colonne au clic
+
+Modal "Fiche Lead" (ouvre au clic sur "Voir") :
+  Header : nom + badge statut + source
+  Section infos : véhicule, prix, délai, reprise, budget, vendeur assigné
+  Section historique conversation IA : bulles de chat (style SMS)
+    Bulles lead : gauche, fond var(--color-surface-2)
+    Bulles agent IA : droite, fond var(--color-accent-dim), border var(--color-accent-border)
+  Actions : "Assigner à un vendeur" | "Archiver" | "Marquer comme converti"
+
+--- ROUTE /clients ---
+
+Header : "Base clients" + boutons "Importer CSV" + "Ajouter manuellement"
+
+Filtres :
+  Tabs : Tous | CT urgent (< 30j) | Entretien dépassé | À relancer | Optout
+  Recherche par nom ou véhicule
+
+Tableau :
+  Colonnes : Client | Véhicule | Kilométrage | Date CT | Dernier entretien | Statut | Dernière relance | Actions
+  15 lignes d'exemple
+
+Modal "Importer CSV" :
+  Bouton télécharger template CSV
+  Zone drag & drop (border dashed, border-radius-lg, text centré)
+  Prévisualisation des 5 premières lignes après upload
+  Bouton "Confirmer l'import"
+
+Modal "Ajouter manuellement" :
+  Champs : Prénom | Nom | Téléphone | Email | Véhicule | Kilométrage | Date CT | Date dernier entretien
+
+--- ROUTE /relances ---
+
+2 onglets :
+
+  Onglet "Planifiées" :
+    Tableau : Date prévue | Client | Véhicule | Type relance | Message prévisualisé (tronqué) | Canal | Statut
+    Bouton "Envoyer maintenant" sur chaque ligne (déclenche l'envoi immédiat)
+    Composant prévisualisation : frame smartphone (border, border-radius-xl, 280px de large)
+      Affiche le SMS tel qu'il apparaît sur le téléphone du client
+      Fond gris clair dans le frame, bulle verte en bas (côté envoyeur)
+
+  Onglet "Historique" :
+    Tableau : Date envoi | Client | Type | Message envoyé | Réponse client | Statut (Envoyé/Lu/Répondu/Erreur)
+
+--- ROUTE /rapports ---
+
+Page simple avec 3 sections :
+
+  Métriques du mois :
+    Taux de retour atelier, nombre de leads qualifiés, SMS envoyés, revenus estimés récupérés
+    Graphes simples (barres, utilise recharts ou Chart.js)
+
+  Rapport ROI :
+    Tableau : Mois | SMS envoyés | RDV générés | CA estimé récupéré | ROI x abonnement
+
+  Export :
+    Bouton "Exporter rapport PDF" (génère un simple document récapitulatif)
+
+--- ROUTE /settings ---
+
+4 sections en accordéon ou tabs :
+
+  Ma concession :
+    Nom commercial | Adresse | Téléphone | Logo upload
+    Bouton "Sauvegarder"
+
+  Agent IA :
+    Clé API Anthropic (input type password + icône œil pour révéler)
+    Numéro Twilio émetteur SMS
+    Nom de l'agent (ex : "Assistant Relanco")
+    Ton de l'agent : select (Chaleureux / Professionnel / Commercial)
+    Bouton "Tester l'agent" → ouvre modal chat (voir ci-dessous)
+
+  Notifications :
+    Toggle "Email alerte lead chaud" + champ email destinataire
+    Toggle "Rapport hebdomadaire par email"
+    Toggle "Alertes WhatsApp" + champ numéro
+
+  Abonnement :
+    Plan actuel + date renouvellement + bouton "Gérer mon abonnement" (→ Stripe portal)
+
+Modal "Tester l'agent" :
+  Fenêtre 600px de haut
+  Header "Test de votre agent IA — Simulation lead entrant"
+  Zone de conversation (bulles style iMessage)
+    Vous (droite) : fond var(--color-accent), texte #08090A
+    Agent (gauche) : fond var(--color-surface-2), texte var(--color-text-primary)
+  Indicateur de frappe : 3 points animés pendant l'appel API
+  Input + bouton "Envoyer"
+  Bouton "Réinitialiser"
+
+═══════════════════════════════════════════════════════════════════
+PARTIE 5 — BACKEND ET API
+═══════════════════════════════════════════════════════════════════
+
+--- STRUCTURE FICHIERS ---
+
+/server
+  index.js          (entry point Express)
+  /routes
+    auth.js         (POST /api/auth/login, POST /api/auth/register)
+    clients.js      (CRUD clients)
+    leads.js        (CRUD leads)
+    relances.js     (GET/POST relances)
+    agent.js        (POST /api/agent/qualify-lead, /api/agent/generate-relance)
+    settings.js     (GET/PUT paramètres concession)
+  /middleware
+    auth.js         (vérification JWT)
+  /services
+    anthropic.js    (wrapper appels Claude)
+    twilio.js       (envoi SMS)
+    cron.js         (job quotidien 9h)
+  /db
+    schema.sql      (création tables)
+    seed.js         (données démo)
+
+--- SCHÉMA BASE DE DONNÉES ---
+
+CREATE TABLE concessions (
+  id SERIAL PRIMARY KEY,
+  nom VARCHAR(255) NOT NULL,
+  adresse TEXT,
+  telephone VARCHAR(20),
+  logo_url TEXT,
+  vendeur_default VARCHAR(100),
+  twilio_number VARCHAR(20),
+  agent_nom VARCHAR(100) DEFAULT 'Assistant Relanco',
+  agent_ton VARCHAR(50) DEFAULT 'Chaleureux',
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  concession_id INTEGER REFERENCES concessions(id),
+  prenom VARCHAR(100),
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  role VARCHAR(20) DEFAULT 'admin',
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE clients (
+  id SERIAL PRIMARY KEY,
+  concession_id INTEGER REFERENCES concessions(id),
+  prenom VARCHAR(100),
+  nom VARCHAR(100),
+  telephone VARCHAR(20),
+  email VARCHAR(255),
+  vehicule VARCHAR(200),
+  km_achat INTEGER,
+  date_achat DATE,
+  date_ct DATE,
+  date_entretien DATE,
+  statut_relance VARCHAR(50) DEFAULT 'aucune',
+  relance_ct_j30 BOOLEAN DEFAULT FALSE,
+  relance_ct_j7 BOOLEAN DEFAULT FALSE,
+  relance_entretien BOOLEAN DEFAULT FALSE,
+  optout BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE leads (
+  id SERIAL PRIMARY KEY,
+  concession_id INTEGER REFERENCES concessions(id),
+  prenom VARCHAR(100),
+  telephone VARCHAR(20),
+  vehicule_demande VARCHAR(200),
+  prix DECIMAL(10,2),
+  source VARCHAR(100),
+  message_original TEXT,
+  historique JSONB DEFAULT '[]',
+  temperature VARCHAR(20) DEFAULT 'FROID',
+  delai_achat VARCHAR(100),
+  reprise VARCHAR(100),
+  budget VARCHAR(100),
+  vendeur_assigne VARCHAR(100),
+  statut VARCHAR(50) DEFAULT 'nouveau',
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE relances_history (
+  id SERIAL PRIMARY KEY,
+  concession_id INTEGER REFERENCES concessions(id),
+  client_id INTEGER REFERENCES clients(id),
+  type_relance VARCHAR(50),
+  message_envoye TEXT,
+  canal VARCHAR(20),
+  date_envoi TIMESTAMP DEFAULT NOW(),
+  reponse_client TEXT,
+  statut VARCHAR(50) DEFAULT 'envoye'
+);
+
+--- ENDPOINTS API ---
+
+POST /api/auth/login
+  Body : { email, password }
+  Returns : { token, user, concession }
+
+POST /api/auth/register
+  Body : { prenom, email, password, nom_concession, telephone }
+  Returns : { token, user, concession }
+
+GET  /api/clients          (avec query params : filtre, search, page)
+POST /api/clients          (créer client)
+PUT  /api/clients/:id      (modifier)
+POST /api/clients/import   (import CSV — multer)
+
+GET  /api/leads            (avec filtres statut, source, date)
+POST /api/leads            (créer lead entrant)
+PUT  /api/leads/:id        (modifier statut, assigner vendeur)
+
+GET  /api/relances/planifiees
+GET  /api/relances/historique
+POST /api/relances/envoyer/:clientId  (envoi manuel immédiat)
+
+POST /api/agent/qualify-lead
+  Body : { vehicule, prix, source, message_lead, historique, prenom, canal }
+  Returns : { message, lead_temperature, needs_human }
+
+POST /api/agent/generate-relance
+  Body : { type_relance, prenom, vehicule, date_ct, km, date_entretien, vendeur, canal }
+  Returns : { message, char_count }
+
+GET  /api/settings
+PUT  /api/settings
+
+GET  /api/dashboard/stats  (4 métriques du dashboard)
+
+--- CRON JOB (9h chaque matin) ---
+
+Logique :
+  1. Récupérer tous les clients de toutes les concessions actives
+  2. Pour chaque client :
+     IF date_ct dans 30 jours ET relance_ct_j30 = false
+       → générer SMS via Claude → envoyer via Twilio → update flag
+     IF date_ct dans 7 jours ET relance_ct_j7 = false
+       → générer SMS → envoyer → update flag
+     IF date_entretien > 365 jours ET relance_entretien = false
+       → générer SMS → envoyer → update flag
+  3. Logger dans relances_history
+  4. Envoyer email récap au directeur (nombre de SMS envoyés)
+
+Bouton "Simuler les relances du jour" dans le dashboard déclenche ce même processus manuellement.
+
+═══════════════════════════════════════════════════════════════════
+PARTIE 6 — INTÉGRATION AGENT IA (ANTHROPIC)
+═══════════════════════════════════════════════════════════════════
+
+Clé API : Secret Replit nommé ANTHROPIC_API_KEY
+Modèle  : claude-sonnet-4-20250514
+Max tokens : 400 (SMS/conversation) — 800 (email)
+Temperature : 0.3
+
+--- SYSTEM PROMPT — QUALIFICATION LEAD ---
+
+"Tu es l'assistant commercial IA de la concession {concession_name}.
+Tu réponds aux leads qui s'intéressent à un véhicule.
+
+MISSION : Qualifier ce lead en 3 questions max (délai achat → reprise → budget).
+Une seule question par message. Maximum 2 phrases par message.
+Ton {agent_ton}, vouvoiement. Jamais de jargon technique.
+
+VÉHICULE : {vehicule} à {prix}€
+SOURCE   : {source}
+MESSAGE  : {message_lead}
+HISTORIQUE : {historique}
+
+CLASSIFICATION (détermine après les 3 questions) :
+  CHAUD = délai < 1 mois ET budget cohérent
+  TIÈDE = délai 1-3 mois
+  FROID = délai > 3 mois ou vague
+
+GARDE-FOUS :
+- Jamais promettre un prix différent de {prix}€
+- Si lead agressif → 'Je transmets votre demande à notre équipe. À très vite !'
+- Jamais > 160 caractères si canal = SMS
+
+Génère uniquement ta réponse au lead. Rien d'autre."
+
+--- SYSTEM PROMPT — RELANCES APRÈS-VENTE ---
+
+"Tu es l'assistant de la concession {concession_name}.
+Génère un message de relance personnalisé.
+
+TYPE   : {type_relance}
+CLIENT : {prenom}, {vehicule}, {km}km
+DATE CT : {date_ct}
+DERNIER ENTRETIEN : {date_entretien}
+VENDEUR : {vendeur}
+CANAL : {canal}
+
+INSTRUCTIONS PAR TYPE :
+CT_J30     → informatif, proposer RDV, max 160 car.
+CT_J7      → urgence douce, mentionner risque amende 135€, créneau immédiat
+ENTRETIEN  → conseil bienveillant, bénéfice sécurité/économies, jamais culpabilisant
+REPRISE    → offre exclusive, estimation reprise, RDV sans engagement
+ANNIVERSAIRE → chaleureux, aucune vente directe
+
+SMS : max 160 caractères, signer '— {concession_name}'
+EMAIL : commencer par [OBJET: ...], puis 3-5 lignes, signature complète
+
+Génère uniquement le message final. Rien d'autre."
+
+--- OUTPUT STRUCTURÉ (retour JSON de l'API) ---
+
+qualify-lead retourne :
+{
+  "message": "string",
+  "lead_temperature": "CHAUD|TIÈDE|FROID",
+  "questions_done": 0-3,
+  "needs_human": boolean
+}
+
+generate-relance retourne :
+{
+  "message": "string",
+  "char_count": number,
+  "canal": "SMS|EMAIL"
+}
+
+═══════════════════════════════════════════════════════════════════
+PARTIE 7 — DONNÉES D'EXEMPLE (seed.js)
+═══════════════════════════════════════════════════════════════════
+
+CONCESSION DÉMO :
+  Nom : "Garage Moreau Automobiles"
+  Adresse : "14 rue de la Paix, 69006 Lyon"
+  Téléphone : "04 78 12 34 56"
+  Vendeur : "Julien Moreau"
+
+COMPTE DÉMO :
+  email    : demo@relanco.fr
+  password : demo2025
+  prenom   : Julien
+
+CLIENTS (15 exemples) :
+  Marc Dubois — Renault Clio 4 2019 — 87 000km — CT: 15/07/2025 — Lyon
+  Sophie Laurent — Peugeot 2008 2020 — 62 000km — CT: 03/08/2025
+  Thomas Martin — Dacia Duster 2018 — 124 000km — CT dépassé
+  Isabelle Petit — Citroën C3 2021 — 41 000km — CT: 22/09/2025
+  Pierre Moreau — Toyota Yaris 2017 — 98 000km — Entretien dépassé (18 mois)
+  Camille Rousseau — Renault Captur 2022 — 38 000km — CT: 10/10/2025
+  Antoine Bernard — Peugeot 308 2019 — 76 000km — CT: 28/06/2025
+  Julie Lefevre — Volkswagen Polo 2020 — 54 000km — Entretien dépassé (14 mois)
+  Nicolas Girard — Dacia Logan 2016 — 143 000km — CT dépassé
+  Marie Blanc — Toyota Yaris Cross 2023 — 22 000km — CT: 15/03/2026
+  François Dupont — Citroën C5 Aircross 2021 — 67 000km — CT: 04/09/2025
+  Aurélie Simon — Renault Zoe 2020 — 48 000km — Entretien dépassé
+  Kevin Leroy — Peugeot 508 2018 — 112 000km — CT: 18/07/2025
+  Nathalie Bonnet — Citroën C4 2022 — 31 000km — CT: 22/11/2025
+  Mathieu Robert — Dacia Sandero 2019 — 91 000km — CT: 07/08/2025
+
+LEADS (10 exemples) :
+  Jean Dupont — Peugeot 3008 28 000€ — LeBonCoin — CHAUD — <1 mois — reprise Clio 4
+  Marie Bernard — Renault Captur 22 500€ — Site web — TIÈDE — 2 mois — non
+  Alex Rousseau — Dacia Sandero 14 900€ — La Centrale — FROID — >6 mois — inconnu
+  Lucie Martin — Toyota Yaris Cross 26 000€ — LeBonCoin — CHAUD — 2 semaines — reprise 208
+  Paul Durand — Peugeot 208 18 500€ — Site web — TIÈDE — 1 mois — non
+  Sarah Leclerc — Citroën C3 15 900€ — Email — FROID — >3 mois — inconnu
+  Mehdi Bouazza — Renault Clio 5 19 200€ — La Centrale — CHAUD — 3 semaines — reprise Twingo
+  Éléonore Petit — Dacia Duster 22 000€ — LeBonCoin — TIÈDE — 6 semaines — non
+  Hugo Roux — Volkswagen Golf 28 500€ — Site web — FROID — >4 mois — inconnu
+  Clara Morel — Toyota C-HR 31 000€ — LeBonCoin — CHAUD — 1 mois — reprise Clio 4 2018
+
+═══════════════════════════════════════════════════════════════════
+PARTIE 8 — FICHIERS DE CONFIGURATION
+═══════════════════════════════════════════════════════════════════
+
+.env.example :
+  DATABASE_URL=postgresql://user:password@localhost:5432/relanco
+  JWT_SECRET=your_jwt_secret_here
+  ANTHROPIC_API_KEY=sk-ant-...
+  TWILIO_ACCOUNT_SID=AC...
+  TWILIO_AUTH_TOKEN=...
+  TWILIO_PHONE_NUMBER=+33...
+  BREVO_API_KEY=...
+  STRIPE_SECRET_KEY=sk_...
+  NODE_ENV=development
+  PORT=3000
+
+README.md (instructions setup) :
+  1. Copier .env.example → .env et remplir les valeurs
+  2. npm install
+  3. createdb relanco
+  4. node server/db/seed.js
+  5. npm start
+  Compte démo : demo@relanco.fr / demo2025
+
+package.json scripts :
+  "start": "node server/index.js"
+  "dev": "nodemon server/index.js"
+  "seed": "node server/db/seed.js"
+
+═══════════════════════════════════════════════════════════════════
+PARTIE 9 — CHECKLIST FINALE
+═══════════════════════════════════════════════════════════════════
+
+Vérifie que :
+  ✓ Aucune occurrence de "Decorilla" ou "SaaSify" dans le code
+  ✓ Aucune couleur violette (#6366f1, #7c3aed, #8b5cf6) — tout remplacé par l'or (#D4A843)
+  ✓ Fond sombre (#08090A) partout — zéro gris clair
+  ✓ Bouton CTA primaire en or sur toutes les pages
+  ✓ Section stats (4 métriques) présente entre hero et modules
+  ✓ Police Inter chargée + JetBrains Mono pour les chiffres
+  ✓ Toutes les icônes sont Lucide React
+  ✓ Animations fadeUp au scroll sur les cards
+  ✓ Point pulsant or dans le tag hero
+  ✓ Dashboard accessible avec demo@relanco.fr / demo2025
+  ✓ Cron job configuré (simulable via bouton dashboard)
+  ✓ Modal chat agent IA fonctionnel dans /settings
+  ✓ Import CSV fonctionnel dans /clients
+  ✓ Tous les textes en français — zéro terme anglais visible
+  ✓ Page responsive (mobile-first)
+  ✓ Meta title et description corrects
+  ✓ Footer : "© 2025 Relanco. Tous droits réservés."

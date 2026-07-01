@@ -1,0 +1,60 @@
+Avantages du combo
+Prix justifié plus élevé (€299–599 vs €99 chacun)
+Churn quasi nul — données client intégrées des deux côtés
+Cycle vertueux : lead → achat → relance → réachat
+Un seul interlocuteur pour le directeur de concession
+Upsell naturel : commencer par un module, ajouter l'autre
+Données enrichies : le comportement après-vente améliore la qualification
+Points de vigilance
+Ne pas tout builder en même temps — risque de dispersion
+Intégration DMS (logiciel de gestion) requise dès le départ
+Cycle de vente plus long qu'un outil ponctuel (décision + intégration)
+Commencer par un seul module pour valider, puis combiner
+Stratégie de lancement recommandée
+1
+Lancer uniquement les relances après-vente
+Plus simple à builder, zéro intégration CRM requise au début. Connexion DMS + SMS/email automatiques. MVP en 4–6 semaines.
+Maintenant
+2
+Ajouter la qualification des leads entrants
+Une fois 10–20 concessions clientes, builder l'agent IA de réponse aux leads. Les clients existants upgradent naturellement — tu as déjà leur confiance.
+Mois 3–4
+3
+Proposer le pack combiné "AutoPilot"
+Les deux modules bundlés à un prix attractif. Le cycle de données se ferme : leads → achat → relance → rachat. C'est là que le churn devient quasi nul.
+Mois 6–8
+Métriques cibles
+€149
+Module seul / mois
+€399
+Pack combiné / mois
+<6%
+Churn cible (combo)
+€80K
+MRR cible 18 mois
+Roadmap features par phase
+Phase 1 — MVP
+Relances après-vente
+Rappel CT automatique J-30 et J-7 (SMS + email)
+Relance entretien au km prédit
+Offre de reprise déclenchée au bon moment
+Tableau de bord taux de retour atelier
+Phase 2 — Add-on
+Qualification des leads
+Réponse IA aux leads en <60 secondes 24h/24
+3 questions de qualification (budget, délai, reprise ?)
+Fiche enrichie livrée dans le CRM
+Score de priorité lead pour les vendeurs
+Phase 3 — Combo
+Cycle de vie complet
+Données leads → historique client post-vente
+Profil 360° : du premier contact au 3e achat
+Prédiction du prochain achat par IA
+Rapport ROI mensuel pour le directeur
+Feature bonus
+Contenu IA (jamais seul)
+Génération fiches VO automatique
+Posts réseaux sociaux pré-rédigés
+Emails campagne personnalisés par IA
+Intégré au pack — pas vendu séparément
+Le piège à éviter : ne pas essayer de builder les deux modules en même temps. Commence par les relances après-vente (4–6 semaines de build, zéro intégration complexe), valide que des concessions paient, puis ajoute la qualification des leads avec les revenus et les apprentissages du premier module.

@@ -1,0 +1,183 @@
+Ajoute un toggle mensuel/annuel sur la section tarifaire. L'annuel est l'option active par défaut et la plus mise en avant visuellement. Réduction de 20% sur tous les plans annuels.
+
+═══════════════════════════════════════════════════════════════════
+PRIX EXACTS À UTILISER
+═══════════════════════════════════════════════════════════════════
+
+Rappels Auto :
+  Mensuel    : €179/mois
+  Annuel     : €143/mois — facturé €1 718/an (arrondi de €1 718.40)
+  Économie   : €430/an
+
+Réponse Clients :
+  Mensuel    : €179/mois
+  Annuel     : €143/mois — facturé €1 718/an
+  Économie   : €430/an
+
+Pack Complet :
+  Mensuel    : €299/mois
+  Annuel     : €239/mois — facturé €2 868/an (arrondi de €2 870.40)
+  Économie   : €720/an
+
+═══════════════════════════════════════════════════════════════════
+TOGGLE — L'ANNUEL EST L'OPTION PAR DÉFAUT
+═══════════════════════════════════════════════════════════════════
+
+Le toggle s'affiche centré au-dessus des cards.
+État par défaut au chargement de la page : ANNUEL actif.
+
+Structure :
+
+  [  Mensuel  |  ● Annuel  🏷 2 mois offerts  ]
+
+Style du conteneur toggle :
+  background: var(--color-surface)
+  border: 1px solid var(--color-border)
+  border-radius: var(--radius-pill)
+  padding: 4px
+  display: inline-flex
+  gap: 4px
+
+Option "Mensuel" inactive :
+  background: transparent
+  color: var(--color-text-muted)
+  padding: 8px 24px
+  border-radius: var(--radius-pill)
+  font-size: 14px
+  font-weight: 400
+  cursor: pointer
+  transition: all 0.2s ease
+
+Option "Annuel" active (par défaut) :
+  background: var(--color-accent)
+  color: #08090A
+  padding: 8px 24px
+  border-radius: var(--radius-pill)
+  font-size: 14px
+  font-weight: 700
+  cursor: pointer
+  box-shadow: 0 2px 12px rgba(212,168,67,0.35)
+
+Badge "2 mois offerts" collé sur l'option Annuel :
+  position: absolute, top: -10px, right: -8px
+  background: var(--color-success)
+  color: #08090A
+  font-size: 10px
+  font-weight: 700
+  padding: 2px 7px
+  border-radius: var(--radius-pill)
+  white-space: nowrap
+
+Ligne sous le toggle (visible uniquement en mode annuel) :
+  "🎁 Abonnement annuel — jusqu'à €720 économisés par an"
+  font-size: 13px
+  color: var(--color-success)
+  text-align: center
+  margin-top: 10px
+  margin-bottom: 24px
+  font-weight: 500
+
+═══════════════════════════════════════════════════════════════════
+AFFICHAGE DES CARDS EN MODE ANNUEL (par défaut)
+═══════════════════════════════════════════════════════════════════
+
+Card 1 — "Rappels Auto" :
+
+  Prix barré : ~~€179/mois~~
+    font-size: 15px, color: var(--color-text-muted), text-decoration: line-through
+
+  Prix annuel : €143/mois
+    font-size: 38px, font-weight: 700, font-family: var(--font-mono), color: var(--color-text-primary)
+
+  Sous le prix : "facturé €1 718/an"
+    font-size: 12px, color: var(--color-text-muted)
+
+  Badge économie :
+    "Économisez €430/an"
+    background: var(--color-success-dim), color: var(--color-success)
+    border: 1px solid rgba(34,197,94,0.2)
+    font-size: 12px, font-weight: 600
+    padding: 3px 10px, border-radius: var(--radius-pill)
+    display: inline-block, margin-bottom: 16px
+
+Card 2 — "Réponse Clients" :
+  Mêmes règles que Card 1.
+
+Card 3 — "Pack Complet" :
+
+  Prix barré : ~~€299/mois~~
+
+  Prix annuel : €239/mois
+    font-size: 38px, font-weight: 700, font-family: var(--font-mono)
+
+  Sous le prix : "facturé €2 868/an"
+
+  Deux badges empilés (flex-direction column, gap 6px, align-items flex-start) :
+    Badge 1 : "Économisez €720/an" — vert
+    Badge 2 : "Recommandé" — or (background var(--color-accent), color #08090A)
+
+  Ligne supplémentaire sous les badges :
+    "Au lieu de €3 588/an séparément"
+    font-size: 12px, color: var(--color-text-muted), text-decoration: line-through
+
+═══════════════════════════════════════════════════════════════════
+AFFICHAGE DES CARDS EN MODE MENSUEL
+═══════════════════════════════════════════════════════════════════
+
+Quand l'utilisateur clique sur "Mensuel" :
+
+  Masquer les prix barrés et les badges économie
+  Afficher uniquement :
+
+  Card 1 et 2 :
+    Prix : €179/mois
+    font-size: 38px, font-weight: 700, font-family: var(--font-mono)
+    Sous le prix : "par mois, sans engagement"
+    font-size: 12px, color: var(--color-text-muted)
+
+  Card 3 :
+    Prix : €299/mois
+    Sous le prix : "par mois, sans engagement"
+    Badge "Recommandé" uniquement (or)
+
+Animation de transition lors du switch :
+  Les prix entrent avec : opacity 0 → 1, transform translateY(-6px) → 0
+  duration: 0.2s, easing: ease
+
+═══════════════════════════════════════════════════════════════════
+BOUTONS CTA
+═══════════════════════════════════════════════════════════════════
+
+Mode annuel :
+  Cards 1 et 2 : "Commencer — facturation annuelle"  →  /register?billing=annual
+  Card Pack Complet : "Choisir le Pack Complet annuel"  →  /register?plan=complet&billing=annual
+
+Mode mensuel :
+  Cards 1 et 2 : "Commencer avec cette formule"  →  /register?billing=monthly
+  Card Pack Complet : "Choisir le Pack Complet"  →  /register?plan=complet&billing=monthly
+
+═══════════════════════════════════════════════════════════════════
+LIGNE DE RÉASSURANCE SOUS LES CARDS
+═══════════════════════════════════════════════════════════════════
+
+Mode annuel :
+  "Paiement annuel en une fois • Essai gratuit 14 jours • Remboursé si non satisfait sous 30 jours"
+
+Mode mensuel :
+  "Tous les modules disponibles immédiatement • Essai gratuit 14 jours • Sans engagement • Résiliable à tout moment"
+
+═══════════════════════════════════════════════════════════════════
+VÉRIFICATION FINALE
+═══════════════════════════════════════════════════════════════════
+
+  ✓ Toggle centré, option Annuel active et dorée au chargement
+  ✓ Option Mensuel en gris discret
+  ✓ Badge "2 mois offerts" sur l'option Annuel
+  ✓ Ligne "🎁 jusqu'à €720 économisés" visible sous le toggle en mode annuel
+  ✓ Prix annuels corrects : €143 / €143 / €239
+  ✓ Prix facturés corrects : €1 718 / €1 718 / €2 868
+  ✓ Prix barrés (€179, €179, €299) visibles en mode annuel
+  ✓ Badges économie verts visibles en mode annuel
+  ✓ Animation fluide lors du switch
+  ✓ CTAs mis à jour selon le mode actif
+  ✓ Aucune régression sur les effets hover existants

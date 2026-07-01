@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Relanco — Premium Black & Gold */
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Inter', sans-serif;
+
+  --background: 220 14% 4%;
+  --foreground: 220 9% 95%;
+
+  --card: 220 11% 7%;
+  --card-foreground: 220 9% 95%;
+
+  --popover: 220 11% 7%;
+  --popover-foreground: 220 9% 95%;
+
+  --primary: 43 65% 55%;
+  --primary-foreground: 220 14% 4%;
+
+  --secondary: 220 8% 11%;
+  --secondary-foreground: 220 9% 95%;
+
+  --muted: 220 8% 11%;
+  --muted-foreground: 220 7% 55%;
+
+  --accent: 43 65% 55%;
+  --accent-foreground: 220 14% 4%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 220 7% 15%;
+  --input: 220 7% 15%;
+  --ring: 43 65% 55%;
+
+  --radius: 0.75rem;
+
+  --sidebar: 220 11% 7%;
+  --sidebar-background: 220 11% 7%;
+  --sidebar-foreground: 220 9% 95%;
+  --sidebar-primary: 43 65% 55%;
+  --sidebar-primary-foreground: 220 14% 4%;
+  --sidebar-accent: 43 65% 55% / 0.1;
+  --sidebar-accent-foreground: 43 65% 55%;
+  --sidebar-border: 220 7% 15%;
+  --sidebar-ring: 43 65% 55%;
+
+  /* Relanco semantic tokens */
+  --color-bg: #08090A;
+  --color-bg-2: #0F1013;
+  --color-bg-3: #16181C;
+  --color-surface: #1C1E23;
+  --color-surface-2: #23262C;
+  --color-accent-gold: #D4A843;
+  --color-accent-gold-light: #E8C068;
+  --color-accent-gold-dark: #B8902F;
+  --color-text-primary: #F2F3F5;
+  --color-text-secondary: #8B8F99;
+  --color-text-muted: #50545E;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-[#08090A] text-[#F2F3F5] antialiased;
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply tracking-tight font-bold;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-[#0F1013]/80 backdrop-blur-xl border border-white/[0.07] shadow-lg;
+  }
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #E8C068 0%, #D4A843 40%, #B8902F 100%);
+  }
+  .font-mono-numbers {
+    font-family: var(--font-mono);
+  }
+  .card-surface {
+    @apply bg-[#1C1E23] border border-white/[0.07] rounded-[14px];
+  }
+  .card-surface-hover {
+    @apply bg-[#1C1E23] border border-white/[0.07] rounded-[14px] transition-all duration-200 hover:border-white/[0.14] hover:-translate-y-0.5;
+  }
+  .card-accent {
+    @apply bg-[#16181C] border border-[rgba(212,168,67,0.22)] rounded-[14px];
+    box-shadow: inset 0 0 40px rgba(212,168,67,0.06), 0 0 0 1px rgba(212,168,67,0.22);
+  }
+
+  /* Card interactive hover — base class */
+  .card-interactive {
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+  }
+  .card-interactive:hover {
+    transform: translateY(-6px) scale(1.01);
+    border-color: rgba(255,255,255,0.2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  /* Card with icon that illuminates */
+  .card-icon-box {
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  /* Pricing card — accent (Pack Complet) */
+  .pricing-card-accent {
+    transform: scale(1.03);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .pricing-card-accent:hover {
+    transform: scale(1.06);
+    border-color: rgba(212,168,67,0.5);
+    box-shadow: 0 0 0 1px rgba(212,168,67,0.5),
+                inset 0 0 60px rgba(212,168,67,0.10),
+                0 24px 48px rgba(212,168,67,0.15);
+  }
+
+  /* Pricing card — standard */
+  .pricing-card-standard {
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .pricing-card-standard:hover {
+    transform: translateY(-6px) scale(1.01);
+    border-color: rgba(255,255,255,0.2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  /* Advantage card hover */
+  .advantage-card {
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .advantage-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212,168,67,0.22);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  }
+  .advantage-card:hover .advantage-icon {
+    color: var(--color-accent-gold-light);
+  }
+
+  /* Roadmap card hover */
+  .roadmap-card {
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+  }
+  .roadmap-card:hover {
+    transform: translateY(-4px);
+  }
+  .roadmap-card-inactive {
+    opacity: 0.7;
+  }
+  .roadmap-card-inactive:hover {
+    opacity: 1;
+    border-color: rgba(255,255,255,0.2);
+  }
+  .roadmap-card-active {
+    box-shadow: 0 0 0 1px rgba(212,168,67,0.3);
+  }
+  .roadmap-card-active:hover {
+    box-shadow: 0 16px 40px rgba(212,168,67,0.15), 0 0 0 1px rgba(212,168,67,0.4);
+  }
+
+  /* FAQ hover */
+  .faq-item {
+    transition: background 0.15s ease, border-color 0.25s ease;
+  }
+  .faq-item:hover {
+    background: var(--color-surface-2);
+  }
+  .faq-item[data-state="open"] {
+    border-color: rgba(212,168,67,0.3);
+  }
+  .faq-item[data-state="open"] .faq-chevron {
+    color: var(--color-accent-gold);
+  }
+
+  /* Button hover effects */
+  .btn-primary-gold {
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary-gold:hover {
+    background: var(--color-accent-gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212,168,67,0.35);
+  }
+  .btn-primary-gold:active {
+    transform: scale(0.97);
+    box-shadow: none;
+  }
+
+  /* Disable hover on mobile */
+  @media (hover: none) {
+    .card-interactive:hover,
+    .pricing-card-accent:hover,
+    .pricing-card-standard:hover,
+    .advantage-card:hover,
+    .roadmap-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212,168,67,0.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(212,168,67,0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.5s ease-out both;
+}

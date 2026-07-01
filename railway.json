@@ -1,0 +1,13 @@
+{
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "npm install && npm run build",
+    "nixpacksPlan": {
+      "providers": ["node"]
+    }
+  },
+  "deploy": {
+    "startCommand": "npm start",
+    "restartPolicyType": "ON_FAILURE"
+  }
+}

@@ -1,0 +1,134 @@
+Corrige le positionnement des 3 modules et de la section tarifaire. Le problème actuel : les badges "Phase 1 / Phase 2 — Mois 3-4 / Phase 3 — Mois 6-8" donnent l'impression que le client doit ATTENDRE des mois avant d'accéder aux modules supérieurs. C'est faux et ça décourage l'achat du pack complet. L'objectif est de présenter les 3 modules comme des niveaux disponibles MAINTENANT, et de laisser le client choisir par où il commence.
+
+═══════════════════════════════════════════════════
+SECTION "TROIS MODULES, UN SEUL CYCLE"
+═══════════════════════════════════════════════════
+
+SUPPRIMER complètement les badges de phase sur les 3 cards :
+  ❌ "Phase 1 — Disponible"
+  ❌ "Phase 2 — Mois 3-4"
+  ❌ "Phase 3 — Mois 6-8"
+
+REMPLACER par des badges qui indiquent le niveau de puissance :
+
+  Card 1 — badge : "Essentiel" (couleur success vert)
+  Card 2 — badge : "Avancé" (couleur info bleu)
+  Card 3 — badge : "Complet — Recommandé" (couleur accent or, fond or dim)
+
+MODIFIER le sous-titre de la section :
+
+AVANT :
+"Chaque module génère des données qui enrichissent les autres. C'est le cycle de vie complet du client qui crée le vrai avantage."
+
+APRÈS :
+"Choisissez votre niveau selon vos besoins. Vous pouvez démarrer avec un seul module ou activer les trois dès le premier jour."
+
+═══════════════════════════════════════════════════
+SECTION "STRATÉGIE DE LANCEMENT" → RENOMMER ET REFONDRE
+═══════════════════════════════════════════════════
+
+RENOMMER le titre :
+
+AVANT : "Stratégie de lancement"
+APRÈS : "Comment ça marche"
+
+MODIFIER le sous-titre :
+
+AVANT : "Ne pas tout builder en même temps. Valide chaque module avant de passer au suivant."
+APRÈS : "Démarrez par ce dont vous avez besoin aujourd'hui. Ajoutez les autres modules quand vous voulez."
+
+MODIFIER les 3 cards pour supprimer toute notion de délai obligatoire :
+
+Card 1 — "Rappels clients automatiques"
+  Supprimer : "Maintenant" sous le titre
+  Ajouter badge : "Disponible immédiatement" (vert)
+  Corps : conserver le texte corrigé
+  Prix : "€149/mois"
+
+Card 2 — "Réponse aux demandes d'achat"
+  Supprimer : "Mois 3-4" sous le titre
+  Ajouter badge : "Disponible immédiatement" (vert)
+  Corps : conserver le texte corrigé
+  Prix : "€149/mois"
+  Supprimer tout texte qui laisse entendre que ce module n'est pas encore disponible
+
+Card 3 — "Pack Complet"
+  Supprimer : "Mois 6-8" sous le titre
+  Ajouter badge : "Recommandé — Meilleure valeur" (or)
+  Corps : conserver le texte corrigé
+  Prix : "€299/mois" (au lieu de €399 — les deux modules séparés coûtent 149+149=298€, le pack doit être perçu comme plus avantageux)
+  Ajouter une ligne : "Économisez €49/mois par rapport aux deux modules séparés."
+
+MODIFIER les numéros des cards :
+  Les cercles numérotés 1/2/3 doivent rester pour indiquer une progression logique
+  MAIS ajouter une légende sous les 3 cards :
+  "Les trois modules sont disponibles immédiatement. La progression suggérée aide à une prise en main progressive — mais vous pouvez activer le Pack Complet dès le premier jour."
+  Style : font-size 13px, color var(--color-text-muted), text-align center, margin-top 16px
+
+═══════════════════════════════════════════════════
+SECTION TARIFS — REFONTE COMPLÈTE
+═══════════════════════════════════════════════════
+
+MODIFIER le sous-titre :
+
+AVANT : "Commencez par un module, augmentez quand vous voyez les résultats. Le combo est le prix le plus avantageux."
+APRÈS : "Trois formules disponibles dès aujourd'hui. Changez de formule à tout moment."
+
+MODIFIER les 3 colonnes tarifaires :
+
+Col 1 — "Rappels Auto" (ex "Relances Auto" → renommer encore plus clair)
+  Prix : €149/mois
+  Sous-titre : "Pour commencer avec les rappels clients automatiques."
+  Supprimer tout signe que c'est la seule option disponible maintenant
+  CTA : "Commencer avec cette formule" (bouton secondaire)
+
+Col 2 — "Réponse Leads" 
+  Prix : €149/mois
+  Sous-titre : "Pour répondre automatiquement à toutes vos demandes d'achat."
+  SUPPRIMER le bouton désactivé "Disponible Mois 3-4"
+  REMPLACER PAR : CTA "Commencer avec cette formule" (bouton secondaire) — ACTIF et cliquable
+  SUPPRIMER toute mention de délai
+
+Col 3 — "Pack Complet" (card accent or + badge "RECOMMANDÉ")
+  Prix : €299/mois (ajuster depuis €399)
+  Sous-titre : "Les deux modules réunis. Économisez €49/mois."
+  Ajouter juste sous le prix : 
+    "Au lieu de €298/mois séparément"
+    Style : font-size 12px, color var(--color-text-muted), text-decoration line-through, margin-bottom 4px
+  Puis :
+    "Économie de €49/mois"
+    Style : font-size 13px, color var(--color-success), font-weight 600
+  CTA : "Choisir le Pack Complet" (bouton primaire or)
+
+AJOUTER une ligne de réassurance sous les 3 colonnes :
+  "Tous les modules sont disponibles immédiatement • Essai gratuit 14 jours • Changement de formule à tout moment • Sans engagement"
+  Style : font-size 12px, color var(--color-text-muted), text-align center, margin-top 24px
+
+═══════════════════════════════════════════════════
+BOUTONS CTA DANS LA SECTION "COMMENT ÇA MARCHE"
+═══════════════════════════════════════════════════
+
+Card 1 et Card 2 :
+  "Commencer maintenant" → bouton secondaire, actif et cliquable → redirige vers /register
+
+Card 3 :
+  "Choisir le Pack Complet" → bouton primaire or, actif → redirige vers /register?plan=complet
+
+═══════════════════════════════════════════════════
+VÉRIFICATION FINALE
+═══════════════════════════════════════════════════
+
+Vérifie qu'aucune de ces phrases ou mots n'apparaît dans l'interface :
+
+  ❌ "Mois 3-4" ou "Mois 6-8" dans un badge ou sous-titre visible
+  ❌ "Phase 1 / Phase 2 / Phase 3" dans les badges des cards modules
+  ❌ Bouton désactivé (opacity réduite) sur un plan tarifaire
+  ❌ Tout texte impliquant qu'un module n'est "pas encore disponible"
+  ❌ €399 sur le Pack Complet (remplacer par €299)
+  ❌ "Stratégie de lancement" comme titre de section
+
+  ✓ Tous les CTA sont cliquables et actifs
+  ✓ Les 3 modules ont des badges de niveau (Essentiel / Avancé / Complet)
+  ✓ La légende "disponibles immédiatement" apparaît sous les cards
+  ✓ Le prix barré €298 apparaît sur le Pack Complet pour montrer l'économie
+  ✓ "Comment ça marche" est le nouveau titre de la section roadmap
